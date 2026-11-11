@@ -27,6 +27,7 @@ python manage.py db upgrade
 # Start CTFd
 echo "Starting CTFd"
 exec gunicorn 'CTFd:create_app()' \
+    -c gunicorn_config.py \
     --bind '0.0.0.0:8000' \
     --workers $WORKERS \
     --worker-tmp-dir "$WORKER_TEMP_DIR" \

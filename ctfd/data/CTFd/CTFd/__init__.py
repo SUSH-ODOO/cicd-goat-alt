@@ -1,3 +1,7 @@
+import aikido_zen
+
+aikido_zen.protect()
+
 import datetime
 import os
 import sys
@@ -5,6 +9,7 @@ import weakref
 from distutils.version import StrictVersion
 
 import jinja2
+from aikido_zen.middleware import AikidoFlaskMiddleware
 from flask import Flask, Request
 from flask.helpers import safe_join
 from flask_migrate import upgrade
@@ -303,5 +308,7 @@ def create_app(config="CTFd.config.Config"):
         init_logs(app)
         init_events(app)
         init_plugins(app)
+
+        app.wsgi_app = AikidoFlaskMiddleware(app.wsgi_app)
 
         return app

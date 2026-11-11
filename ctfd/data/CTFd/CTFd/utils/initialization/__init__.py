@@ -3,6 +3,7 @@ import logging
 import os
 import sys
 
+from aikido_zen import set_user
 from flask import abort, redirect, render_template, request, session, url_for
 from sqlalchemy.exc import IntegrityError, InvalidRequestError
 from werkzeug.middleware.dispatcher import DispatcherMiddleware
@@ -240,6 +241,9 @@ def init_request_processors(app):
         if authed():
             user = get_current_user_attrs()
             team = get_current_team_attrs()
+
+            if user:
+                set_user({"id": str(user.id), "name": user.name})
 
             if user and user.banned:
                 return (
