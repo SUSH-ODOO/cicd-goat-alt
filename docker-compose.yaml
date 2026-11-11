@@ -36,6 +36,8 @@ services:
   ctfd:
     image: cidersecurity/goat-ctfd:latest
     container_name: ctfd
+    environment:
+      - AIKIDO_TOKEN=
     ports:
       - "8000:8000"
     networks:
